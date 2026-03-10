@@ -1,4 +1,10 @@
-
+#Hugging Face Token: (HF Token allows for Higher Rate Limits and Faster Downloads)
+#TEMPORARY VERSION:
+#export HF_TOKEN=your_token_here  (Paste in Terminal If Using)
+#PERMANENT OPTION: 
+#echo 'export HF_TOKEN= ' >> ~/.zshrc
+#source ~/.zshrc
+# ^^^^ MOVE TO READ-ME LATER. 
 
 
 # ---| MODEL IMPORTS |---#
@@ -13,6 +19,7 @@ print("Loading tokeniser...") #Load Note
 
 #loading the tokeniser from local hugging face cache. 
 tokenizer = AutoTokenizer.from_pretrained(model_name) 
+tokenizer.pad_token = tokenizer.eos_token 
 #loads all parameters from local cache, weights stored in 16 bit to save memory.
 model = AutoModelForCausalLM.from_pretrained(model_name,
                                              dtype=torch.float16, #torch_dtype=torch.float16, <-- Doesn't Work
