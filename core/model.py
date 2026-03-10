@@ -8,8 +8,9 @@
 
 #  _______________________________________________________
 # |=-=-=-=-=-=-=-=-=-=-=| PHASE ONE |=-=-=-=-=-=-=-=-=-=-=|
-# PHASE 1: PREPARING THE MODEL FOR USE.
-# Current: proof of concept. 
+# | PHASE 1: PREPARING THE MODEL FOR USE.                 |
+# | Current: proof of concept.                            |
+#  \_____________________________________________________/
 
 # ---| MODEL IMPORTS |---#
 # 1)Loads the Mistral Model, 2)Converts Txt Into numbers the model understands.

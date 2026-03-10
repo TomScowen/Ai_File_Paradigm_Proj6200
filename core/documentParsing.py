@@ -6,9 +6,11 @@
 # |=-=-=-=-=-=-=-=-=-=-=-=-=-| PHASE TWO |-=-=-=-=-=-=-=-=-=-=-=-=-=|
 # | DOCUMENT PARSING SEGMENT, This section takes uploaded files,    |
 # | and extracts the raw text from it: ready to be sent to mistral. |
+#  \________________________________________________________________/
 
 # |-----: IMPORTS
 from appErrors import ERRORS # Imports list of errors of the app.
+from appConfig import MIN_CHARACTER_INPUTS # Minimum Words Input
 import fitz #For PDFS (pymupdf)
 import docx #For Word Docs (python-docx)
 from pathlib import Path #for handling file paths. 
@@ -42,9 +44,20 @@ def parse_Doc(file_path):
     #UNKNOWN FILES:
     else:
         print ("File Type:",ext, "...", ERRORS["UNSUPPORTED_FILE_TYPE"])
-        textX = ERRORS["UNSUPPORTED_FILE_TYPE"]
+        print ("Falling Back To Use Metadata")
+        return "METADATA_FALLBACK"
 
+    # Minimum Characters to Ensure a File Has Sufficient Resources to Categorise on. 
+    if len(textX.split()) < MIN_CHARACTER_INPUTS:
+        print(ERRORS["INSUFFICIENT_CONTENTS"])
+        return "METADATA_FALLBACK"
     return textX
+
+
+#Fallback option, thus if insufficient contents we use metadata instead. 
+
+
+
 
 #for testing temporarily
 if __name__ == "__main__":
