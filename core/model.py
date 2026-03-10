@@ -6,6 +6,10 @@
 #source ~/.zshrc
 # ^^^^ MOVE TO READ-ME LATER. 
 
+#  _______________________________________________________
+# |=-=-=-=-=-=-=-=-=-=-=| PHASE ONE |=-=-=-=-=-=-=-=-=-=-=|
+# PHASE 1: PREPARING THE MODEL FOR USE.
+# Current: proof of concept. 
 
 # ---| MODEL IMPORTS |---#
 # 1)Loads the Mistral Model, 2)Converts Txt Into numbers the model understands.
@@ -38,10 +42,10 @@ outputs = model.generate(
     input_ids=inputs["input_ids"],
     attention_mask=inputs["attention_mask"],
     max_new_tokens=100, #limter on response to 100 new tokens.
-    pad_token_id=tokenizer.eos_token_id 
-)
+    pad_token_id=tokenizer.eos_token_id )
 
 # Converts the output token IDS back to human txt. (decoding)
 response = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 print("Response: ", response) #Printing Response. 
+
