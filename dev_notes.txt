@@ -1,0 +1,10 @@
+#PDF ISSUE NOTES
+
+#for testing temporarily
+if __name__ == "__main__":
+    test_file = '/Users/TomScowen/Desktop/Booking.com_ Confirmation.pdf'
+    result = parse_Doc(test_file)
+    print(result[500])  
+
+    # note edgecase as this pdf (booking.com pdf) generated from a web is largely formated as images rather than text, thus a lot of the document can't be parsed.
+    # to counter this maybe I should add a minimum words processed, option 2 is to use OCR (optical character recognition)
