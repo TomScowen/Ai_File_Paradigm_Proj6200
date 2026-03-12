@@ -1,7 +1,4 @@
-#useful links:
-# pymupdf.readthedocs.io 
-# python-docx.readthedocs.io
-# docs.python.org/3/library/pathlib.html
+
 #  _________________________________________________________________
 # |=-=-=-=-=-=-=-=-=-=-=-=-=-| PHASE TWO |-=-=-=-=-=-=-=-=-=-=-=-=-=|
 # | DOCUMENT PARSING SEGMENT, This section takes uploaded files,    |
@@ -45,14 +42,27 @@ def parse_Doc(file_path):
     else:
         print ("File Type:",ext, "...", ERRORS["UNSUPPORTED_FILE_TYPE"])
         print ("Falling Back To Use Metadata")
-        return "METADATA_FALLBACK"
+        return getMetadata(file_path, ext, "", error=ERRORS["UNSUPPORTED_FILE_TYPE"])
 
     # Minimum Characters to Ensure a File Has Sufficient Resources to Categorise on. 
     if len(textX.split()) < MIN_CHARACTER_INPUTS:
         print(ERRORS["INSUFFICIENT_CONTENTS"])
-        return "METADATA_FALLBACK"
-    return textX
+        return getMetadata(file_path, ext, textX, error=ERRORS["INSUFFICIENT_CONTENTS"])
+    
+    return getMetadata(file_path, ext, textX)
 
+#For Grabbing The Metadata from the file. (To be added to or shortened.)
+def getMetadata(file_path, ext, textX):
+    return {
+        "text": textX,
+        "metadata": {
+            "filename": Path(file_path).name,
+            "extension": ext,
+            "size_bytes": Path(file_path).stat().st_size,
+            "last_modified": Path(file_path).stat().st_mtime,
+            "word_count": len(textX.split())
+        }
+    }
 
 #Fallback option, thus if insufficient contents we use metadata instead. 
 
@@ -65,5 +75,25 @@ if __name__ == "__main__":
     result = parse_Doc(test_file)
     print(result[:500])  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # note edgecase as this pdf (booking.com pdf) generated from a web is largely formated as images rather than text, thus a lot of the document can't be parsed.
     # to counter this maybe I should add a minimum words processed, option 2 is to use OCR (optical character recognition)
+    
+    #useful links:
+        # pymupdf.readthedocs.io 
+        # python-docx.readthedocs.io
+        # docs.python.org/3/library/pathlib.html
