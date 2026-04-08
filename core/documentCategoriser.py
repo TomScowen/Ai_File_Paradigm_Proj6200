@@ -15,10 +15,15 @@ from model import model, tokenizer
 from appConfig import MAX_CHARACTER_INPUTS, MAX_NEW_TOKENS, TEMPERATURE
 from appErrors import ERRORS
 
-
-def categorise_Doc(text, existing_categories=[]):
-
-    if text == "METADATA_FALLBACK": #To be added in the future.
-        print("W.I.P: Currently Can't Handle MetaData")
-        pass
+#parsedResult will be passed through from the app.py (phase4)
+def categorise_Doc(parsedResult, existing_categories=[]):
+ 
+ #Metadata Fallback...
+    if parsedResult["error"] == ERRORS["INSUFFICIENT_CONTENTS"] or parsedResult["error"] == ERRORS["UNSUPPORTED_FILE_TYPE"]: #To be added in the future.
+        print("W.I.P: Currently Can't Handle MetaData Fallback")
+        return None
     
+    text = parsedResult["text"][:MAX_CHARACTER_INPUTS]
+
+#To be Made...
+    prompt = f"""..."""

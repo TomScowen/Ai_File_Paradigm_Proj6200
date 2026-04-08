@@ -52,9 +52,11 @@ def parse_Doc(file_path):
     return getMetadata(file_path, ext, textX)
 
 #For Grabbing The Metadata from the file. (To be added to or shortened.)
-def getMetadata(file_path, ext, textX):
+def getMetadata(file_path, ext, textX, error=None):
     return {
+        #metadata dictionary
         "text": textX,
+        "error": error,
         "metadata": {
             "filename": Path(file_path).name,
             "extension": ext,
@@ -69,25 +71,12 @@ def getMetadata(file_path, ext, textX):
 
 
 
+
 #for testing temporarily
 if __name__ == "__main__":
     test_file = '/Users/TomScowen/Desktop/IMG_7965 2.png'
     result = parse_Doc(test_file)
     print(result[:500])  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     # note edgecase as this pdf (booking.com pdf) generated from a web is largely formated as images rather than text, thus a lot of the document can't be parsed.
