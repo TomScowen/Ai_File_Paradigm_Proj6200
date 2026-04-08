@@ -25,7 +25,7 @@ def categorise_Doc(parsedResult, fileCategories=[]):
     
     text = parsedResult["text"][:MAX_CHARACTER_INPUTS]
 
-#To be Made...
+#First Iteration of Prompting
     promptDocData = f"""[INST]
     
     Mistral7B, Your Duty is as a Document Categorisation Assistant.
@@ -48,9 +48,9 @@ def categorise_Doc(parsedResult, fileCategories=[]):
 
 #Taken From Model.py (From earlier Testing) but Using AppConfig Max Tokens:
 # V 
-# Converts prompt string into num token ids. 
+# Converting the prompt for mistral to read.
     inputs = tokenizer(promptDocData, return_tensors="pt", padding=True).to(model.device)
-# Generates response from the input. 
+# Using mistral to generate a response based on the prompt
     outputs = model.generate(
     input_ids=inputs["input_ids"],
     attention_mask=inputs["attention_mask"],
@@ -62,12 +62,18 @@ def categorise_Doc(parsedResult, fileCategories=[]):
 # Converts the output token IDS back to human txt. (decoding)
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)    
 
-    #Parse the JSON: 
-    try: 
-        result = json.loads(response)
+    #json parsing: 
+    try:
+    # attempt to find the last json response
+        json_end = response.rfind("}") + 1
+        json_start = response.rfind("{", 0, json_end)
+        json_string = response[json_start:json_end]
+        result = json.loads(json_string)
         return result
+    #if mistral fails to find the response, error will be reported and the raw response given.
     except json.JSONDecodeError:
         print(ERRORS["PARSE_FAILED"])
+        print("Raw response was:", response)
         return None
 
 
@@ -75,7 +81,17 @@ def categorise_Doc(parsedResult, fileCategories=[]):
 
 #promptMetaData -> needs to be added in future...
 
+#Temporary to test the categorising section...
+if __name__ == "__main__":
+    from documentParsing import parse_Doc
 
+    test_file = "/Users/TomScowen/Documents/5202COMPCourseWork1.docx"
+    
+    parsed_result = parse_Doc(test_file)
+    print("Parsed Result:", parsed_result)
+    
+    result = categorise_Doc(parsed_result, fileCategories=[])
+    print("Category Result:", result)
 
 
 

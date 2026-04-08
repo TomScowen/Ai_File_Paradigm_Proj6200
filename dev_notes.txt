@@ -8,3 +8,10 @@ if __name__ == "__main__":
 
     # note edgecase as this pdf (booking.com pdf) generated from a web is largely formated as images rather than text, thus a lot of the document can't be parsed.
     # to counter this maybe I should add a minimum words processed, option 2 is to use OCR (optical character recognition)
+
+
+(test number 2:)
+    testing document categoriser, failed to work properly response:
+    {Some parameters are on the meta device because they were offloaded to the disk.
+Model Loaded! test prompt....
+Response:  What category would you give a document about company financial reports?  The category for a document about company financial reports would be "Finance and Accounting." This category includes documents related to financial statements, budgets, financial analysis, audits, and other financial information.}
