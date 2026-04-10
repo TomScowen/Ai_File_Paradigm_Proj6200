@@ -33,8 +33,8 @@ from documentCategoriser import categorise_Doc
 
 #User Interface Configuration 
 streamlit.set_page_config(
-    page_title="Ai-Driven File Paradigm Application"
-    page_icon="🗂️"
+    page_title="Ai-Driven File Paradigm Application",
+    page_icon="🗂️",
     layout="wide" #maybe need to change to be a specific size or changeable depending on device being used...
 
 )
