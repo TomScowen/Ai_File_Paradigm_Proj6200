@@ -24,6 +24,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "core"))
 from documentParsing import parse_Doc
 from documentCategoriser import categorise_Doc
 
+#Temp File Import, for file to upload as in-memory objects.
+import tempfile
+
 #__________________________________________________
 # APP UI BUILDING --->                                |
 # docs.streamlit.io                                |

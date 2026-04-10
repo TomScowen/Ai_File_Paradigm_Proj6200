@@ -1,4 +1,5 @@
 {
+    // This simply fixes the underlining in fileParadigmApp to where it can actually find the paths...
     "python.analysis.extraPaths": [
         "./core"
     ]
