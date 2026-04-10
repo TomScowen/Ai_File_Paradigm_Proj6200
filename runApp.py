@@ -17,7 +17,7 @@ def phase4Streamlit():
         "streamlit", "run", "fileParadigmApp.py", "--server.headless","true"
     ])
 
-thread = threading.thread(target=phase4Streamlit)
+thread = threading.Thread(target=phase4Streamlit)
 thread.daemon = True
 thread.start()
 
@@ -32,4 +32,4 @@ webview.create_window(
     resizable=True
 )
 
-webview.start #lets hope this actually runs
+webview.start() #lets hope this actually runs
