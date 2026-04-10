@@ -6,7 +6,30 @@
 #  \________________________________________________________________/
 
 #Import list For PyWebView
+import subprocess
+import threading # runs things simultaneously (currently not working)
+import time 
+import webview #PyWebView (creates desktop window by wrapping streamlits browser engine)
 
-import webview
 
-def phase4Streamlit():.... #need to fix later.
+def phase4Streamlit():
+    subprocess.Popen([ #lets python launch and control other programs in script (lets it use streamlit in background)
+        "streamlit", "run", "fileParadigmApp.py", "--server.headless","true"
+    ])
+
+thread = threading.thread(target=phase4Streamlit)
+thread.daemon = True
+thread.start()
+
+time.sleep(5) #gives time for streamlit to start.
+
+#window aspects
+webview.create_window(
+    "AI-Driven File Paradigm",
+    "http://localhost:8501",
+    width=1200,
+    height=800,
+    resizable=True
+)
+
+webview.start #lets hope this actually runs
