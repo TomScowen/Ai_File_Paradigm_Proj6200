@@ -50,7 +50,7 @@ streamlit.set_page_config(
 
 # Panel 1
 with streamlit.sidebar:
-    streamlit.write("") # space to level the panels
+    streamlit.markdown("<br>", unsafe_allow_html=True)
     streamlit.write("CONTROL PANEL")
 
 col2, col3 = streamlit.columns([3, 1])
