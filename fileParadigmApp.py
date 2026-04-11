@@ -21,8 +21,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "core"))
 # ^ useful links: https://docs.python.org/3/library/sys.html#sys.path + https://docs.python.org/3/library/os.path.html
 
 #Importing from phase 2 and 3...
-from documentParsing import parse_Doc
-from documentCategoriser import categorise_Doc
+#from documentParsing import parse_Doc
+#from documentCategoriser import categorise_Doc
 
 #Temp File Import, for file to upload as in-memory objects.
 import tempfile
@@ -51,15 +51,25 @@ streamlit.set_page_config(
 # Panel 1
 with streamlit.sidebar:
     streamlit.write("CONTROL PANEL")
+
+col2, col3 = streamlit.columns([3, 1.2])
 # Panel 2
-with streamlit.columns([3, 1]):
+with col2:
     streamlit.write("DIRECTORY PANEL")
 
 # Panel 3
-with streamlit.columns([3, 1]):
+with col3:
     streamlit.write("EXT INFORMATION PANEL")
 
 
+# Aligns the Side Bar Tites. (hopefully)
+streamlit.markdown("""
+<style>
+    .block-container {
+        padding-top: 1rem;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 
 
