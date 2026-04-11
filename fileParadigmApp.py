@@ -62,14 +62,7 @@ with col3:
     streamlit.write("EXT INFORMATION PANEL")
 
 
-# Aligns the Side Bar Tites. (hopefully)
-streamlit.markdown("""
-<style>
-    .block-container {
-        padding-top: 1rem;
-    }
-</style>
-""", unsafe_allow_html=True)
+
 
 
 
