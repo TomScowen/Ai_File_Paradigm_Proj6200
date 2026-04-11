@@ -50,9 +50,10 @@ streamlit.set_page_config(
 
 # Panel 1
 with streamlit.sidebar:
+    streamlit.write("") # space to level the panels
     streamlit.write("CONTROL PANEL")
 
-col2, col3 = streamlit.columns([3, 1.2])
+col2, col3 = streamlit.columns([3, 1])
 # Panel 2
 with col2:
     streamlit.write("DIRECTORY PANEL")
