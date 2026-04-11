@@ -47,15 +47,16 @@ streamlit.set_page_config(
 
 
 
+
 # Panel 1
 with streamlit.sidebar:
     streamlit.write("CONTROL PANEL")
 # Panel 2
-with streamlit.columns([3,1]):
+with streamlit.columns([3, 1]):
     streamlit.write("DIRECTORY PANEL")
 
 # Panel 3
-with streamlit.columns([3,1]):
+with streamlit.columns([3, 1]):
     streamlit.write("EXT INFORMATION PANEL")
 
 
