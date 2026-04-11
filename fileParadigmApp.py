@@ -42,8 +42,23 @@ streamlit.set_page_config(
 
 )
 
-streamlit.title("Ai-Driven File Paradigm")
-streamlit.caption("Artificial Intelligence Ran Document Categorisation App, Using Mistral-7B")
+# UI Skeleton Layout
+# 1) Left Control Panel, 2) Main Folder Panel. 3) Pop Up Details Panel. 
+
+
+
+# Panel 1
+with streamlit.sidebar:
+    streamlit.write("CONTROL PANEL")
+# Panel 2
+with streamlit.columns([3,1]):
+    streamlit.write("DIRECTORY PANEL")
+
+# Panel 3
+with streamlit.columns([3,1]):
+    streamlit.write("EXT INFORMATION PANEL")
+
+
 
 
 
