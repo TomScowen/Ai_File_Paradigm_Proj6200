@@ -45,6 +45,9 @@ streamlit.set_page_config(
 # UI Skeleton Layout
 # 1) Left Control Panel, 2) Main Folder Panel. 3) Pop Up Details Panel. 
 
+# Details Panel Pop Up Selection.
+if "selected_file" not in streamlit.session_state: #this means that it won't show unless selected.
+    streamlit.session_state.selected_file=None
 
 
 
@@ -60,7 +63,8 @@ with col2:
 
 # Panel 3
 with col3:
-    streamlit.write("EXT INFORMATION PANEL")
+    if streamlit.session_state.selected_file:
+        streamlit.write("EXT INFORMATION PANEL")
 
 
 
