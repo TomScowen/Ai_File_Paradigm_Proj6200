@@ -42,6 +42,18 @@ streamlit.set_page_config(
 
 )
 
+#hide the streamlit default features: (TEMPORARILY DISABLED)
+temp = """streamlit.markdown("""
+<style>
+    #MainMenu {visibility: hidden;}
+    [data-testid="stToolbar"] {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+</style>
+""", unsafe_allow_html=True)"""
+
+
+
 #https://developer.mozilla.org/en-US/docs/Web/CSS - Good link for CSS information. 
 # UI Skeleton Layout
 # 1) Left Control Panel, 2) Main Folder Panel. 3) Pop Up Details Panel. 
