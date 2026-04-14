@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "core"))
 import tempfile
 
 #__________________________________________________
-# APP UI BUILDING --->                                |
+# APP UI BUILDING --->                             |
 # docs.streamlit.io                                |
 # docs.streamlit.io/library/api-reference          |
 # docs.streamlit.io/library/cheatsheet             |
@@ -42,6 +42,7 @@ streamlit.set_page_config(
 
 )
 
+#https://developer.mozilla.org/en-US/docs/Web/CSS - Good link for CSS information. 
 # UI Skeleton Layout
 # 1) Left Control Panel, 2) Main Folder Panel. 3) Pop Up Details Panel. 
 
@@ -50,24 +51,52 @@ if "selected_file" not in streamlit.session_state: #this means that it won't sho
     streamlit.session_state.selected_file=None
 
 
-
 # Panel 1
 with streamlit.sidebar:
-    streamlit.markdown('<div style="margin-top: 20px;"></div>', unsafe_allow_html=True)
+    streamlit.markdown('<div style="margin-top: 30px;"></div>', unsafe_allow_html=True)
     streamlit.write("CONTROL PANEL")
+
+#Adjusting Widths So When Details Panel is Selected or Not the Folder Panel (Directory) fits to the screen
+
 
 col2, col3 = streamlit.columns([3, 1])
 # Panel 2
-with col2:
-    streamlit.write("DIRECTORY PANEL")
+
+streamlit.write("DIRECTORY PANEL")
+
+
 
 # Panel 3
-with col3:
+
+
+# Temporary test button - remove later
+if streamlit.button("Test Detail Panel"):
     if streamlit.session_state.selected_file:
-        streamlit.write("EXT INFORMATION PANEL")
+        streamlit.session_state.selected_file = None
+    else:
+        streamlit.session_state.selected_file = "test"
+    streamlit.rerun()
 
-
-
+if streamlit.session_state.selected_file:
+    #Config for Detail Panel
+    streamlit.markdown("""
+        <div style="
+            position: fixed;
+            top: 230px; 
+            right: 40px;
+            width: 300px;
+            height: 400px;
+            background-color: white;
+            border: 3px dashed #ccc;
+            border-color: darkred;
+            border-radius: 8px;
+            padding: 16px;
+            z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        ">
+            EXT INFORMATION PANEL
+        </div>
+    """, unsafe_allow_html=True)
 
 
 
