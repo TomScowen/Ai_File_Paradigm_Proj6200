@@ -43,14 +43,16 @@ streamlit.set_page_config(
 )
 
 #hide the streamlit default features: (TEMPORARILY DISABLED)
-temp = """streamlit.markdown("""
+temp = '''
+streamlit.markdown("""
 <style>
     #MainMenu {visibility: hidden;}
     [data-testid="stToolbar"] {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
 </style>
-""", unsafe_allow_html=True)"""
+""", unsafe_allow_html=True)
+'''
 
 
 
