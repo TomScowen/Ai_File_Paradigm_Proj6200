@@ -33,7 +33,7 @@ import tempfile
 # docs.streamlit.io/library/api-reference          |                        |grey: #d0d0d0                     
 # docs.streamlit.io/library/cheatsheet             |                        |darker grey: #a0a0a0
 #__________________________________________________|                        |dark grey: #707070
-
+                                                                            #(Colour Spectrum to be changed later.)
 
 #User Interface Configuration 
 streamlit.set_page_config(
@@ -85,7 +85,7 @@ streamlit.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# ------------> CONTROL PANEL HEADER
+# ------------> CONTROL PANEL HEADER (Final)
 with streamlit.sidebar:
     streamlit.markdown('<div style="margin-top: 20px;"></div>', unsafe_allow_html=True)
     streamlit.markdown("""
@@ -99,7 +99,7 @@ with streamlit.sidebar:
             border: 2px solid #707070;
         ">
             <span style="color: white; font-size: 1.1em; font-weight: bold;">
-                🗂️ AI-Driven File Paradigm APP
+                ⚙️ AI-Driven File Paradigm APP
             </span>
         </div>
     """, unsafe_allow_html=True)
@@ -112,16 +112,13 @@ if "selected_file" not in streamlit.session_state: #this means that it won't sho
 # Panel 1
 with streamlit.sidebar:
     streamlit.markdown('<div style="margin-top: 30px;"></div>', unsafe_allow_html=True)
-    streamlit.write("CONTROL PANEL")
+
 
 #Adjusting Widths So When Details Panel is Selected or Not the Folder Panel (Directory) fits to the screen
 
 
 col2, col3 = streamlit.columns([3, 1])
 # Panel 2
-
-streamlit.write("DIRECTORY PANEL")
-
 
 
 # Panel 3
@@ -144,7 +141,7 @@ if streamlit.session_state.selected_file:
             right: 40px;
             width: 300px;
             height: 400px;
-            background-color: #f0f0f0;
+            background-color: #a0a0a0;
             border: 3px dashed #ccc;
             border-color: #707070;
             border-radius: 8px;
