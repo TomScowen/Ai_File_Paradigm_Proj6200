@@ -62,8 +62,7 @@ streamlit.markdown("""
 # 1) Left Control Panel, 2) Main Folder Panel. 3) Pop Up Details Panel. 
 
 
-# -------------> HEADER
-# |-----: HEADER BAR
+# -------------> HEADER #(Need 2 Features In this later, Updating last sorted and updated name when switching between modes.)
 streamlit.markdown("""
     <div style="
         background-color: #a0a0a0;
@@ -78,13 +77,16 @@ streamlit.markdown("""
         border: 2px solid #707070
     ">
         <span style="color: white; font-size: 1.2em; font-weight: bold;">
-            🗂️ AI-Driven File Paradigm APP
+            🗂️ AI-Sorted Repository
         </span>
         <span style="color: white; font-style: italic; font-size: 0.85em;">
             Last Sorted... Not yet sorted
         </span>
     </div>
 """, unsafe_allow_html=True)
+
+# ------------> CONTROL PANEL HEADER
+
 
 
 # Details Panel Pop Up Selection.
