@@ -121,15 +121,26 @@ with streamlit.sidebar:
     #For Future Bar
     loading_placeholder = streamlit.empty()
     
-    streamlit.markdown('<div style="margin-top: 10px;"></div>', unsafe_allow_html=True)
 
+    streamlit.markdown("""
+    <style>
+        [data-testid="stFileUploader"] {
+         background-color: gold;
+         border: 2px dashed black;
+         border-radius: 8px;
+         padding: 5px;
+       }
+        [data-testid="stFileUploaderDropzone"] {
+        background-color: gray !important;
+        border-radius: 6px !important;
+        }
+    </style>
+    """, unsafe_allow_html=True)
     # Upload File Box
     uploaded_files = streamlit.file_uploader(
         "📂 Upload Files",
         accept_multiple_files=True,
         type=["pdf", "docx", "txt"],
-        label_visibility="hidden"
-
     )
 
 
