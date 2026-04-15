@@ -125,8 +125,8 @@ with streamlit.sidebar:
             padding: 11px 14px;
             margin-left: -0.98rem;
             margin-right: -0.98rem;
-            margin-top: -2rem;
-            margin-bottom:-1px;
+            margin-top: -2.5rem;
+            margin-bottom:-5rem;
             border: 2px solid #707070;
         ">
             <span style="color: white; font-size: 1.1em; font-weight: bold;">
@@ -139,12 +139,53 @@ with streamlit.sidebar:
 
 # Panel 1
 with streamlit.sidebar:
-    streamlit.markdown('<div style="margin-top: 15px;"></div>', unsafe_allow_html=True)
-    
+    streamlit.markdown('<div style="margin-top: 0px;"></div>', unsafe_allow_html=True)
+    # Adds the UI Design for the Run Button.
+    streamlit.markdown("""
+    <style>
+        [data-testid="stButton"] button {
+            background-color: #eef2f7 !important;
+            color: #4caf50 !important;
+            border: 2px solid #4caf50 !important;
+            border-radius: 8px !important;
+            font-weight: bold !important;
+            margin-top: -15rem;
+            margin-bottom: -20rem;
+        }
+        [data-testid="stButton"] button:hover {
+            background-color: #4caf50 !important;
+            color: white !important;
+            border-color: #388e3c !important;
+        }
+    </style>
+    """, unsafe_allow_html=True)
     # Run Button
     streamlit.button("▶  Run AI-Categorising", use_container_width=True)
-    #For Future Bar
-    loading_placeholder = streamlit.empty()
+    
+    # Loading Bar
+    streamlit.markdown("""
+    <style>
+        .stProgress > div > div > div {
+            border: 0.1px solid #4caf50 !important;
+            border-radius: 4px !important;
+        }
+        .stProgress {
+            margin-top: -20px !important;
+            margin-bottom: -20px !important;
+        }
+        .stProgress > div > div > div > div {
+            background-color: #4caf50 !important;
+        }
+        
+    </style>
+    """, unsafe_allow_html=True)
+    streamlit.progress(10)
+
+    
+    
+
+
+
 #    __________________________________________________________________    
 #   |                     UPLOAD FILE BOX (FINAL)                      |
 #   |                                                                  |
@@ -170,6 +211,7 @@ with streamlit.sidebar:
             border-color: #4a7ab5;
             border-radius: 8px;
             padding: 5px;
+            margin-top: -1.5rem;
         }
         [data-testid="stFileUploaderDropzone"] {
             background-color: #f5f8fc !important;
@@ -212,7 +254,7 @@ with streamlit.sidebar:
 #   | Select Options:                                                            |
 #   | - AI-Sorted Repository                                                     |
 #   | - Unsorted Repository                                                      |
-#   | - Runtime Application Reports                                              |
+#   | - Runtime Application Report                                               |
 #   |                                                                            |
 #   V                                                                            V
 
@@ -225,7 +267,7 @@ with streamlit.sidebar:
          border-radius: 6px;
          padding: 10px;
          margin-top: -20px;
-         margin-right: -14rem;
+         margin-right: -14.8rem;
         
       }
      /* Repository View title */
@@ -249,7 +291,7 @@ with streamlit.sidebar:
      [
            "AI-Sorted Repository",
             "Unsorted Repository",
-            "Runtime Application Reports"
+            "Runtime Application Report"
         ],
         key="viewMode")
 
@@ -275,7 +317,7 @@ with streamlit.sidebar:
           border-radius: 6px;
           padding: 10px;
           margin-top: 10px;
-          margin-right: -14rem; !important
+          margin-right: 0rem; 
       }
     </style>
     """, unsafe_allow_html=True)
@@ -304,19 +346,19 @@ with streamlit.sidebar:
     streamlit.markdown('<div style="margin-top: 0px;"></div>', unsafe_allow_html=True)
     streamlit.markdown("""
     <style>
-     /* Download button styling */
         [data-testid="stDownloadButton"] button {
             background-color: #eef2f7 !important;
-            color: #5a7a9a !important;
-            border: 2px solid #4a7ab5 !important;
+            color: #e53935 !important;
+            border: 2px solid #e53935 !important;
             border-radius: 8px !important;
             width: 100% !important;
             font-weight: bold !important;
             font-size: 0.5em !important;
         }
         [data-testid="stDownloadButton"] button:hover {
-                background-color: #7aafd4 !important;
-                color: white !important;
+            background-color: #e53935 !important;
+            color: white !important;
+            border-color: #b71c1c !important;
         }
         [data-testid="stDownloadButton"] {
             margin-top: -35px !important;
@@ -338,7 +380,7 @@ with streamlit.sidebar:
     streamlit.markdown("""
         <div style="
            font-size: 0.7em;
-            color: #5a7a9a;
+            color: #e53935;
             text-align: center;
             font-style: italic;
             margin-top: -10px;
