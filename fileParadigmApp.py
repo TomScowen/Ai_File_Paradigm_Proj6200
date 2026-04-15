@@ -213,6 +213,8 @@ with streamlit.sidebar:
 #   | - AI-Sorted Repository                                                     |
 #   | - Unsorted Repository                                                      |
 #   | - Runtime Application Reports                                              |
+#   |                                                                            |
+#   V                                                                            V
 
 # CSS border around the mode:
     streamlit.markdown("""
@@ -223,7 +225,8 @@ with streamlit.sidebar:
          border-radius: 6px;
          padding: 10px;
          margin-top: -20px;
-         margin-right: -15.7rem;
+         margin-right: -14rem;
+        
       }
      /* Repository View title */
      div[data-testid="stRadio"] > label {
@@ -250,6 +253,105 @@ with streamlit.sidebar:
         ],
         key="viewMode")
 
+#   |                       End of Select View Feature                           |
+#   |____________________________________________________________________________|  
+
+#    ____________________________________________________________________________    
+#   |                      Select Processing Mode Feature                        |
+#   |                                                                            |
+#   | Select Options:                                                            |
+#   | - Fast                                                                     |
+#   | - Balanced                                                                 |
+#   | - Thorough                                                                 |
+#   |                                                                            |
+#   V                                                                            V
+
+# CSS for Processing Mode box (same as the repository view box ^^^^^)
+    streamlit.markdown("""
+    <style>
+      div[data-testid="stRadio"]:nth-of-type(2) {
+          background-color: #eef2f7;
+          border: 2px solid #4a7ab5;
+          border-radius: 6px;
+          padding: 10px;
+          margin-top: 10px;
+          margin-right: -14rem; !important
+      }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Processing Mode Selection
+    streamlit.radio(
+        "⚡ Processing Mode ⚡",
+        [
+            "Fast",
+            "Balanced",
+            "Thorough"
+        ],
+        index=1,  #sets the default option as balanced
+        key="processingMode"
+    )
+#   |                    End of Select Processing Mode Feature                   |
+#   |____________________________________________________________________________|  
+
+
+#    ____________________________________________________________________________    
+#   |                  Download AI-Sorted Repository as Zip Feature              |
+#   |                                                                            |
+#   V                                                                            V
+
+    #Adding the download button to streamlit
+    streamlit.markdown('<div style="margin-top: 0px;"></div>', unsafe_allow_html=True)
+    streamlit.markdown("""
+    <style>
+     /* Download button styling */
+        [data-testid="stDownloadButton"] button {
+            background-color: #eef2f7 !important;
+            color: #5a7a9a !important;
+            border: 2px solid #4a7ab5 !important;
+            border-radius: 8px !important;
+            width: 100% !important;
+            font-weight: bold !important;
+            font-size: 0.5em !important;
+        }
+        [data-testid="stDownloadButton"] button:hover {
+                background-color: #7aafd4 !important;
+                color: white !important;
+        }
+        [data-testid="stDownloadButton"] {
+            margin-top: -35px !important;
+        }
+        
+    </style>
+    """, unsafe_allow_html=True)
+
+    #This adds the download button features. (probably need a unique code generator and date for file name.)
+    streamlit.download_button(
+     label="⬇ Download New Repository",
+        data=b"",
+     file_name="AI_Sorted_Repository.zip",
+     mime="application/zip",
+     use_container_width=True,
+     disabled=True
+    )
+    #This adds the warning text right below the download button
+    streamlit.markdown("""
+        <div style="
+           font-size: 0.7em;
+            color: #5a7a9a;
+            text-align: center;
+            font-style: italic;
+            margin-top: -10px;
+     ">
+         ⚠️ This does not delete your original files.<br>
+            Two sets of files may be found on your device!
+        </div>
+    """, unsafe_allow_html=True)
+
+#   |                      End of Download Button Feature                        |
+#   |____________________________________________________________________________|  
+
+
 if streamlit.session_state.viewMode == "AI-Sorted Repository":
 
     streamlit.markdown("### AI-Sorted Repository Frame")
@@ -270,6 +372,25 @@ elif streamlit.session_state.viewMode == "Runtime Application Reports":
 
 #   |                       End of Select View Feature                           |
 #   |____________________________________________________________________________|   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #Adjusting Widths So When Details Panel is Selected or Not the Folder Panel (Directory) fits to the screen

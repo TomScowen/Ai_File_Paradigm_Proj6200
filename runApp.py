@@ -30,7 +30,7 @@ webview.create_window(
     width=1200,
     height=800,
     resizable=True,
-    min_size=(900, 700) #Prevents Window from becoming to small.
+    min_size=(900, 800) #Prevents Window from becoming to small.
 )
 
 webview.start() #lets hope this actually runs
