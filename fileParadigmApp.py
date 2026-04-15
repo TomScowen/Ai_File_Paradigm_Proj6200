@@ -76,7 +76,7 @@ streamlit.markdown("""
         margin-bottom: 15px;
         border: 2px solid #707070
     ">
-        <span style="color: white; font-size: 1.2em; font-weight: bold;">
+        <span style="color: white; font-size: 1.2em; font-weight: bold; font-style: italic;">
             🗂️ AI-Sorted Repository
         </span>
         <span style="color: white; font-style: italic; font-size: 0.85em;">
@@ -86,7 +86,23 @@ streamlit.markdown("""
 """, unsafe_allow_html=True)
 
 # ------------> CONTROL PANEL HEADER
-
+with streamlit.sidebar:
+    streamlit.markdown('<div style="margin-top: 20px;"></div>', unsafe_allow_html=True)
+    streamlit.markdown("""
+        <div style="
+            background-color: #a0a0a0;
+            padding: 11px 14px;
+            margin-left: -0.98rem;
+            margin-right: -0.98rem;
+            margin-top: -2rem;
+            margin-bottom:-1px;
+            border: 2px solid #707070;
+        ">
+            <span style="color: white; font-size: 1.1em; font-weight: bold;">
+                🗂️ AI-Driven File Paradigm APP
+            </span>
+        </div>
+    """, unsafe_allow_html=True)
 
 
 # Details Panel Pop Up Selection.
