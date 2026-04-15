@@ -61,9 +61,24 @@ streamlit.markdown("""
 # UI Skeleton Layout
 # 1) Left Control Panel, 2) Main Folder Panel. 3) Pop Up Details Panel. 
 
+#______________
+#To Update the View Mode Title:
+viewModeTitle = streamlit.session_state.viewMode
+
+# Details Panel Pop Up Selection.
+if "selected_file" not in streamlit.session_state: #this means that it won't show unless selected.
+    streamlit.session_state.selected_file=None
+
+#by Default AI-Sorted Repository is selected.
+if "viewMode" not in streamlit.session_state:
+    streamlit.session_state.viewMode = "AI-Sorted Repository"
+
+#to Set the View Title:
+viewModeTitle = streamlit.session_state.viewMode
+#---------------
 
 # -------------> HEADER #(Need 2 Features In this later, Updating last sorted and updated name when switching between modes.)
-streamlit.markdown("""
+streamlit.markdown(f"""
     <div style="
         background-color: #a0a0a0;
         padding: 10px 20px;
@@ -77,7 +92,7 @@ streamlit.markdown("""
         border: 2px solid #707070
     ">
         <span style="color: white; font-size: 1.2em; font-weight: bold; font-style: italic;">
-            🗂️ AI-Sorted Repository
+            🗂️ {viewModeTitle}
         </span>
         <span style="color: white; font-style: italic; font-size: 0.85em;">
             Last Sorted... Not yet sorted
@@ -105,9 +120,6 @@ with streamlit.sidebar:
     """, unsafe_allow_html=True)
 
 
-# Details Panel Pop Up Selection.
-if "selected_file" not in streamlit.session_state: #this means that it won't show unless selected.
-    streamlit.session_state.selected_file=None
 
 # Panel 1
 with streamlit.sidebar:
@@ -186,13 +198,47 @@ with streamlit.sidebar:
 #   | - Unsorted Repository                                                      |
 #   | - Runtime Application Reports                                              |
 
-#by Default AI-Sorted Repository is selected.
-if "viewMode" not in streamlit.session_state:
-    streamlit.session_state.viewMode = "AI-Sorted Repository"
+# CSS border around the mode:
+    streamlit.markdown("""
+    <style>
+      div[data-testid="stRadio"] {
+         border: 2px dashed #707070;
+         border-radius: 6px;
+         padding: 10px;
+         margin-top: -15px;
+         margin-left: 3px;
 
+     }
+    </style>
+    """, unsafe_allow_html=True)
 
+# Repository Mode Selection
+    streamlit.radio(
+        "Repository View",
+     [
+           "AI-Sorted Repository",
+            "Unsorted Repository",
+            "Runtime Application Reports"
+        ],
+        key="viewMode")
 
+if streamlit.session_state.viewMode == "AI-Sorted Repository":
 
+    streamlit.markdown("### AI-Sorted Repository Frame")
+    # future:
+    # show sorted folders
+
+elif streamlit.session_state.viewMode == "Unsorted Repository":
+
+    streamlit.markdown("### Unsorted Repository Frame")
+    # future:
+    # show raw upload order
+
+elif streamlit.session_state.viewMode == "Runtime Application Reports":
+
+    streamlit.markdown("### Runtime Application Reports Frame")
+    # future:
+    # show logs / terminal output
 
 #   |                       End of Select View Feature                           |
 #   |____________________________________________________________________________|   
