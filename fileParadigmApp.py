@@ -120,19 +120,51 @@ with streamlit.sidebar:
     streamlit.button("▶  Run AI-Categorising", use_container_width=True)
     #For Future Bar
     loading_placeholder = streamlit.empty()
-    
+# __________________________________________________________________    
+#|                     UPLOAD FILE BOX (FINAL)                      |
+#|                                                                  |
+#| stFileUploader > is the Outer Box.                               |
+#| stFileUploaderDropzone > is the inner box                        |
+#| stFileUploaderDropzoneInstructions span > Drag & drop text       |
+#| stFileUploaderDropzone button > the actual browse files button   |
+#| stFileUploader label = is the heading label of the box           |
+#|                                                                  |
+#| !important > forces the style to override streamlits defaults    |
+#|              (it essentially fights streamlits framework)        |
+#|                                                                  |
+#| To Resolved The Issues: github.com/streamlit/streamlit/issues    |
 
+#the ui design and tweaks of the drag and drop box
     streamlit.markdown("""
     <style>
         [data-testid="stFileUploader"] {
-         background-color: gold;
-         border: 2px dashed black;
-         border-radius: 8px;
-         padding: 5px;
-       }
+            background-color: #eef2f7;
+            border: 2px solid #c5d5e8;
+            border-color: #1a2b4a;
+            border-radius: 8px;
+            padding: 5px;
+        }
         [data-testid="stFileUploaderDropzone"] {
-        background-color: gray !important;
-        border-radius: 6px !important;
+            background-color: #f5f8fc !important;
+            border-radius: 6px !important;
+            text-align: center !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+        [data-testid="stFileUploaderDropzoneInstructions"] span {
+            color: #5a7a9a !important;
+        }
+        [data-testid="stFileUploaderDropzone"] button {
+            background-color: #7aafd4 !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 6px !important;
+        }
+        [data-testid="stFileUploader"] label {
+            text-align: center !important;
+            display: block !important;
+            color: #5a7a9a !important;
         }
     </style>
     """, unsafe_allow_html=True)
@@ -142,7 +174,8 @@ with streamlit.sidebar:
         accept_multiple_files=True,
         type=["pdf", "docx", "txt"],
     )
-
+#|                 End Of Upload File Box UI                        |
+#|__________________________________________________________________|
 
 
 
