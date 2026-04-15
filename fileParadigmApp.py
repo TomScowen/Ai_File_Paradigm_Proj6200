@@ -111,51 +111,31 @@ if "selected_file" not in streamlit.session_state: #this means that it won't sho
 
 
 
+
 # Panel 1
-
-#Fixing allignment of the Upload File Box.
-streamlit.markdown("""
-    <style>
-        [data-testid="stFileUploaderDropzone"] {
-            text-align: center;
-     }
-     [data-testid="stFileUploader"] label {
-         text-align: center;
-         width: 100%;
-            display: block;
-            font-weight: bold;
-     }
-    /* Centre browse files button */
-    [data-testid="stFileUploaderDropzone"] button {
-        display: block;
-        margin: 0 auto;
-    }
-    /* Hide the drag and drop text, keep just the button */
-    [data-testid="stFileUploaderDropzoneInstructions"] {
-       display: none;
-    }
-        </style>
-    """, unsafe_allow_html=True)
-
 with streamlit.sidebar:
-    streamlit.markdown('<div style="margin-top: 30px;"></div>', unsafe_allow_html=True)
-        
-    #Runs the sorting
-    streamlit.button("▶  Run AI-Categorising", use_container_width=True)
-    #For future loading bar...
-    loading_placeholder = streamlit.empty()
-
+    streamlit.markdown('<div style="margin-top: 15px;"></div>', unsafe_allow_html=True)
     
-  # Upload File Box.
-    streamlit.markdown("<div style='text-align:center; font-size: 3em;'>📄</div>", unsafe_allow_html=True)
+    # Run Button
+    streamlit.button("▶  Run AI-Categorising", use_container_width=True)
+    #For Future Bar
+    loading_placeholder = streamlit.empty()
+    
+    streamlit.markdown('<div style="margin-top: 10px;"></div>', unsafe_allow_html=True)
+
+    # Upload File Box
     uploaded_files = streamlit.file_uploader(
-        "Upload Files",
+        "📂 Upload Files",
         accept_multiple_files=True,
         type=["pdf", "docx", "txt"],
-        label_visibility="collapsed"
+        label_visibility="hidden"
+
     )
 
-    
+
+
+
+
 
 
 
