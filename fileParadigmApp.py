@@ -123,23 +123,14 @@ with streamlit.sidebar:
     
   # Upload File Box.
     streamlit.markdown("""
-        <div style="
-            background-color: #ffffff;
-            border: 1px solid #d0d0d0;
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            margin-bottom: -1rem;
-     ">
-          <strong>📂 Upload Files</strong>
-        </div>
+        
     """, unsafe_allow_html=True)
 
     uploaded_files = streamlit.file_uploader(
         "Upload Files",
         accept_multiple_files=True,
         type=["pdf", "docx", "txt"],
-     label_visibility="collapsed"
+     
     )
 
     
