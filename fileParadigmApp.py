@@ -109,9 +109,6 @@ with streamlit.sidebar:
 if "selected_file" not in streamlit.session_state: #this means that it won't show unless selected.
     streamlit.session_state.selected_file=None
 
-
-
-
 # Panel 1
 with streamlit.sidebar:
     streamlit.markdown('<div style="margin-top: 15px;"></div>', unsafe_allow_html=True)
@@ -120,20 +117,22 @@ with streamlit.sidebar:
     streamlit.button("▶  Run AI-Categorising", use_container_width=True)
     #For Future Bar
     loading_placeholder = streamlit.empty()
-# __________________________________________________________________    
-#|                     UPLOAD FILE BOX (FINAL)                      |
-#|                                                                  |
-#| stFileUploader > is the Outer Box.                               |
-#| stFileUploaderDropzone > is the inner box                        |
-#| stFileUploaderDropzoneInstructions span > Drag & drop text       |
-#| stFileUploaderDropzone button > the actual browse files button   |
-#| stFileUploader label = is the heading label of the box           |
-#|                                                                  |
-#| !important > forces the style to override streamlits defaults    |
-#|              (it essentially fights streamlits framework)        |
-#|                                                                  |
-#| To Resolved The Issues: github.com/streamlit/streamlit/issues    |
-
+#    __________________________________________________________________    
+#   |                     UPLOAD FILE BOX (FINAL)                      |
+#   |                                                                  |
+#   | stFileUploader > is the Outer Box.                               |
+#   | stFileUploaderDropzone > is the inner box                        |
+#   | stFileUploaderDropzoneInstructions span > Drag & drop text       |
+#   | stFileUploaderDropzone button > the actual browse files button   |
+#   | stFileUploader label = is the heading label of the box           |
+#   |                                                                  |
+#   | !important > forces the style to override streamlits defaults    |
+#   |              (it essentially fights streamlits framework)        |
+#   |                                                                  |
+#   |  To Resolved The Issues: github.com/streamlit/streamlit/issues   |
+#   | & inspect elements in browser tools                              |
+#   |                                                                  |
+#   V                                                                  V
 #the ui design and tweaks of the drag and drop box
     streamlit.markdown("""
     <style>
@@ -174,16 +173,29 @@ with streamlit.sidebar:
         accept_multiple_files=True,
         type=["pdf", "docx", "txt"],
     )
-#|                 End Of Upload File Box UI                        |
-#|__________________________________________________________________|
+#   
+#   |                 End Of Upload File Box UI                        |
+#   |__________________________________________________________________|
+
+
+#    ____________________________________________________________________________    
+#   |                              Select View Feature                           |
+#   |                                                                            |
+#   | Select Options:                                                            |
+#   | - AI-Sorted Repository                                                     |
+#   | - Unsorted Repository                                                      |
+#   | - Runtime Application Reports                                              |
+
+#by Default AI-Sorted Repository is selected.
+if "viewMode" not in streamlit.session_state:
+    streamlit.session_state.viewMode = "AI-Sorted Repository"
 
 
 
 
 
-
-
-
+#   |                       End of Select View Feature                           |
+#   |____________________________________________________________________________|   
 
 
 #Adjusting Widths So When Details Panel is Selected or Not the Folder Panel (Directory) fits to the screen
