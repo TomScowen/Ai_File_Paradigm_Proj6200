@@ -84,8 +84,8 @@ streamlit.markdown("""
         </span>
     </div>
 """, unsafe_allow_html=True)
-
-# ------------> CONTROL PANEL HEADER (Final)
+# _______________________________________________________________________________________
+#|------------> CONTROL PANEL HEADER (Final) <-------------------------------------------|
 with streamlit.sidebar:
     streamlit.markdown('<div style="margin-top: 20px;"></div>', unsafe_allow_html=True)
     streamlit.markdown("""
@@ -109,9 +109,20 @@ with streamlit.sidebar:
 if "selected_file" not in streamlit.session_state: #this means that it won't show unless selected.
     streamlit.session_state.selected_file=None
 
+
+
 # Panel 1
 with streamlit.sidebar:
     streamlit.markdown('<div style="margin-top: 30px;"></div>', unsafe_allow_html=True)
+
+    #Runs the sorting
+    streamlit.button("▶  Run AI-Categorising", use_container_width=True)
+    #For future loading bar...
+    loading_placeholder = streamlit.empty()
+
+    
+
+
 
 
 #Adjusting Widths So When Details Panel is Selected or Not the Folder Panel (Directory) fits to the screen
