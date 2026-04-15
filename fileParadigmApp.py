@@ -121,6 +121,17 @@ with streamlit.sidebar:
     loading_placeholder = streamlit.empty()
 
     
+    #Upload File Box.
+    streamlit.markdown("**📂 Upload Files**")
+    uploaded_files = streamlit.file_uploader(
+    "Upload Files",
+    accept_multiple_files=True,
+    type=["pdf", "docx", "txt"],
+    label_visibility="collapsed"
+)
+    
+
+
 
 
 
