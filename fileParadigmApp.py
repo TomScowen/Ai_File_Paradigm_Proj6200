@@ -27,12 +27,13 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "core"))
 #Temp File Import, for file to upload as in-memory objects.
 import tempfile
 
-#__________________________________________________
-# APP UI BUILDING --->                             |
-# docs.streamlit.io                                |
-# docs.streamlit.io/library/api-reference          |
-# docs.streamlit.io/library/cheatsheet             |
-#__________________________________________________|
+#__________________________________________________                          _______________________
+# APP UI BUILDING --->                             |                        |Colour Codes:  
+# docs.streamlit.io                                |                        |vry light grey: #f0f0f0                   
+# docs.streamlit.io/library/api-reference          |                        |grey: #d0d0d0                     
+# docs.streamlit.io/library/cheatsheet             |                        |darker grey: #a0a0a0
+#__________________________________________________|                        |dark grey: #707070
+
 
 #User Interface Configuration 
 streamlit.set_page_config(
@@ -60,10 +61,35 @@ streamlit.markdown("""
 # UI Skeleton Layout
 # 1) Left Control Panel, 2) Main Folder Panel. 3) Pop Up Details Panel. 
 
+
+# -------------> HEADER
+# |-----: HEADER BAR
+streamlit.markdown("""
+    <div style="
+        background-color: #a0a0a0;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: -5rem;
+        margin-right: -5rem;
+        margin-top: -2rem;
+        margin-bottom: 15px;
+        border: 2px solid #707070
+    ">
+        <span style="color: white; font-size: 1.2em; font-weight: bold;">
+            🗂️ AI-Driven File Paradigm APP
+        </span>
+        <span style="color: white; font-style: italic; font-size: 0.85em;">
+            Last Sorted... Not yet sorted
+        </span>
+    </div>
+""", unsafe_allow_html=True)
+
+
 # Details Panel Pop Up Selection.
 if "selected_file" not in streamlit.session_state: #this means that it won't show unless selected.
     streamlit.session_state.selected_file=None
-
 
 # Panel 1
 with streamlit.sidebar:
@@ -100,9 +126,9 @@ if streamlit.session_state.selected_file:
             right: 40px;
             width: 300px;
             height: 400px;
-            background-color: white;
+            background-color: #f0f0f0;
             border: 3px dashed #ccc;
-            border-color: darkred;
+            border-color: #707070;
             border-radius: 8px;
             padding: 16px;
             z-index: 9999;
