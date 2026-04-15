@@ -62,9 +62,6 @@ streamlit.markdown("""
 # 1) Left Control Panel, 2) Main Folder Panel. 3) Pop Up Details Panel. 
 
 #______________
-#To Update the View Mode Title:
-viewModeTitle = streamlit.session_state.viewMode
-
 # Details Panel Pop Up Selection.
 if "selected_file" not in streamlit.session_state: #this means that it won't show unless selected.
     streamlit.session_state.selected_file=None
@@ -77,6 +74,22 @@ if "viewMode" not in streamlit.session_state:
 viewModeTitle = streamlit.session_state.viewMode
 #---------------
 
+#Locks the Control Panel to Fixed Size:
+streamlit.markdown("""
+<style>
+    [data-testid="stSidebar"] {
+        min-width: 295px !important;
+        max-width: 295px !important;
+    }
+    [data-testid="stSidebarResizer"] {
+        display: none !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+
+
+
 # -------------> HEADER #(Need 2 Features In this later, Updating last sorted and updated name when switching between modes.)
 streamlit.markdown(f"""
     <div style="
@@ -87,7 +100,7 @@ streamlit.markdown(f"""
         align-items: center;
         margin-left: -5rem;
         margin-right: -5rem;
-        margin-top: -2rem;
+        margin-top: -3rem;
         margin-bottom: 15px;
         border: 2px solid #707070
     ">
@@ -99,6 +112,9 @@ streamlit.markdown(f"""
         </span>
     </div>
 """, unsafe_allow_html=True)
+
+
+
 # _______________________________________________________________________________________
 #|------------> CONTROL PANEL HEADER (Final) <-------------------------------------------|
 with streamlit.sidebar:
@@ -150,8 +166,8 @@ with streamlit.sidebar:
     <style>
         [data-testid="stFileUploader"] {
             background-color: #eef2f7;
-            border: 2px solid #c5d5e8;
-            border-color: #1a2b4a;
+            border: 2px solid #4a7ab5;
+            border-color: #4a7ab5;
             border-radius: 8px;
             padding: 5px;
         }
@@ -202,12 +218,24 @@ with streamlit.sidebar:
     streamlit.markdown("""
     <style>
       div[data-testid="stRadio"] {
-         border: 2px dashed #707070;
+          background-color: #eef2f7;
+          border: 2px solid #4a7ab5;
          border-radius: 6px;
          padding: 10px;
-         margin-top: -15px;
-         margin-left: 3px;
-
+         margin-top: -20px;
+         margin-right: -15.7rem;
+      }
+     /* Repository View title */
+     div[data-testid="stRadio"] > label {
+         text-align: center !important;
+         display: block !important;
+         font-size: 1.1em !important;
+         font-weight: bold !important;
+         color: #5a7a9a !important;
+     }
+        /* Radio option text */
+        div[data-testid="stRadio"] p {
+            color: #5a7a9a !important;
      }
     </style>
     """, unsafe_allow_html=True)

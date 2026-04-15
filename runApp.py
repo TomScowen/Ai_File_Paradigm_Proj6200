@@ -29,7 +29,8 @@ webview.create_window(
     "http://localhost:8501",
     width=1200,
     height=800,
-    resizable=True
+    resizable=True,
+    min_size=(900, 700) #Prevents Window from becoming to small.
 )
 
 webview.start() #lets hope this actually runs
