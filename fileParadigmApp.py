@@ -114,21 +114,34 @@ if "selected_file" not in streamlit.session_state: #this means that it won't sho
 # Panel 1
 with streamlit.sidebar:
     streamlit.markdown('<div style="margin-top: 30px;"></div>', unsafe_allow_html=True)
-
+        
     #Runs the sorting
     streamlit.button("▶  Run AI-Categorising", use_container_width=True)
     #For future loading bar...
     loading_placeholder = streamlit.empty()
 
     
-    #Upload File Box.
-    streamlit.markdown("**📂 Upload Files**")
+  # Upload File Box.
+    streamlit.markdown("""
+        <div style="
+            background-color: #ffffff;
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: -1rem;
+     ">
+          <strong>📂 Upload Files</strong>
+        </div>
+    """, unsafe_allow_html=True)
+
     uploaded_files = streamlit.file_uploader(
-    "Upload Files",
-    accept_multiple_files=True,
-    type=["pdf", "docx", "txt"],
-    label_visibility="collapsed"
-)
+        "Upload Files",
+        accept_multiple_files=True,
+        type=["pdf", "docx", "txt"],
+     label_visibility="collapsed"
+    )
+
     
 
 
