@@ -9,8 +9,8 @@
 # |           The Core UI and Direction of the Application.           |
 #  \_________________________________________________________________/
 
-
-# IMPORT LIST ----> 
+#=========================================================================|
+# --------- IMPORT LIST ----> 
 import streamlit # for building the user interface
 import sys # pythons built in sys library (needs to be modified python path for core folder)
 import os # pythons built-in operating system (needs to build file path for core folder)
@@ -26,24 +26,21 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "core"))
 
 #Temp File Import, for file to upload as in-memory objects.
 import tempfile
+import json
+#=========================================================================|
 
-#__________________________________________________                          _______________________
-# APP UI BUILDING --->                             |                        |Colour Codes:  
-# docs.streamlit.io                                |                        |vry light grey: #f0f0f0                   
-# docs.streamlit.io/library/api-reference          |                        |grey: #d0d0d0                     
-# docs.streamlit.io/library/cheatsheet             |                        |darker grey: #a0a0a0
-#__________________________________________________|                        |dark grey: #707070
-                                                                            #(Colour Spectrum to be changed later.)
-
-#User Interface Configuration 
-streamlit.set_page_config(
-    page_title="Ai-Driven File Paradigm Application",
-    page_icon="🗂️",
-    layout="wide" #maybe need to change to be a specific size or changeable depending on device being used...
-    )
+#__________________________________________________________________________                     
+# APP UI BUILDING INF Srces --->                                           |                        
+# docs.streamlit.io                                                        |                                          
+# docs.streamlit.io/library/api-reference                                  |                                            
+# docs.streamlit.io/library/cheatsheet                                     |  
+# developer.mozilla.org/en-US/docs/Web/CSS - Good link for CSS information.|                       
+#__________________________________________________________________________|                       
+                                                                            
 
 
-#hide the streamlit default features: (TEMPORARILY DISABLED)
+
+# DISABLED -> When enabled it hides the streamlit default sys settings.
 temp = '''
 streamlit.markdown("""
 <style>
@@ -55,28 +52,55 @@ streamlit.markdown("""
 """, unsafe_allow_html=True)
 '''
 
+#                                                 |||||||||||||||||
+#                                          |||||||||||||||||||||||||||||||
+#                                    |||||||||||||||||||||||||||||||||||||||||||
+#                               |||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                           |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                        |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                      |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                  |||||                                                                     |||||
+#                  |||||              APPLICATION INITIATION AND CONFIGURATIONS              |||||
+#                  |||||                                                                     |||||
+#                   |||                                                                       |||
+#                    |                                                                         |
+#                    V                                                                         V
 
 
-#https://developer.mozilla.org/en-US/docs/Web/CSS - Good link for CSS information. 
-# UI Skeleton Layout
-# 1) Left Control Panel, 2) Main Folder Panel. 3) Pop Up Details Panel. 
+#=========================================================================|
+# --------- INITIALISATION ----> 
+# Initial Page Setup  
+streamlit.set_page_config( page_title="Ai-Driven File Paradigm Application", page_icon="🗂️", layout="wide" )
 
-#______________
-# Details Panel Pop Up Selection.
-if "selected_file" not in streamlit.session_state: #this means that it won't show unless selected.
-    streamlit.session_state.selected_file=None
+# Initialises Selected File, If it doesn't exist it creates it as an empty. (for app start up when nothing is uploaded.)
+if "selected_file" not in streamlit.session_state: streamlit.session_state.selected_file=None
 
-#by Default AI-Sorted Repository is selected.
-if "viewMode" not in streamlit.session_state:
-    streamlit.session_state.viewMode = "AI-Sorted Repository"
+# Sets the default view mode upon App launch.
+if "viewMode" not in streamlit.session_state: streamlit.session_state.viewMode = "AI-Sorted Repository"
+viewModeTitle = streamlit.session_state.viewMode #sets title. 
 
-#to Set the View Title:
-viewModeTitle = streamlit.session_state.viewMode
-#---------------
 
-#Locks the Control Panel to Fixed Size:
+# Loading The AI-Sorted Files Json:
+def load_sorted_files():
+    json_path = os.path.join(os.path.dirname(__file__), "data", "filesAiSorted.json") #Builds full file path to json.
+    try:
+        with open(json_path, "r") as f: return json.load(f) #Reads and Converts Json to Python
+
+    except FileNotFoundError: return {"last_sorted": None, "categories": {}, "misc": []} #catches for App launch. 
+
+sorted_data = load_sorted_files() #Calls the function.
+#=========================================================================|
+
+#=========================================================================|
+# --------- STANDARDISING APP UI FRAMEWORK / SKELETON ----> 
+
+#------------------------------------------------------------| CONTROL PANEL SKELETON CONFIG |------------------>
+#Locking the CONTROL PANEL!  thus that its size doesn't alter and remains / retains its shape.
 streamlit.markdown("""
 <style>
+                   
     [data-testid="stSidebar"] {
         min-width: 295px !important;
         max-width: 295px !important;
@@ -84,26 +108,43 @@ streamlit.markdown("""
     [data-testid="stSidebarResizer"] {
         display: none !important;
     }
+    [data-testid="stSidebar"] .block-container {
+        padding-bottom: 0rem !important;
+    }
+    [data-testid="stSidebar"] {
+        min-width: 295px !important;
+        max-width: 295px !important;
+        background-color: #4a5a6e !important;
+    }
+    [data-testid="stSidebar"] ::-webkit-scrollbar {
+    display: none !important;
+    }
+    [data-testid="stAppViewContainer"] {
+        background-color: #5d7a9a !important;
+    }
+    [data-testid="stMain"] {
+        background-color: #5d7a9a !important;
+    }
 </style>
 """, unsafe_allow_html=True)
+#------------------------------------------------------------|
 
 
 
-
-# -------------> HEADER #(Need 2 Features In this later, Updating last sorted and updated name when switching between modes.)
+#------------------------------------------------------------| DIRECTORY PANEL HEADER (Right) |------------------>
+#creates an adjustable header for the DIRECTORY PANEL, thus that the name and last sorted info adjusts with the options. (UPDATED)
 streamlit.markdown(f"""
     <div style="
-        background-color: #a0a0a0;
+        background-color: #2952a3;
         padding: 10px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-left: -5rem;
         margin-right: -5rem;
-        margin-top: -3rem;
+        margin-top: -3.3rem;
         margin-bottom: 15px;
-        border: 2px solid #707070
-    ">
+        border: 5px solid #1a3f6e;">
         <span style="color: white; font-size: 1.2em; font-weight: bold; font-style: italic;">
             🗂️ {viewModeTitle}
         </span>
@@ -112,22 +153,21 @@ streamlit.markdown(f"""
         </span>
     </div>
 """, unsafe_allow_html=True)
+#------------------------------------------------------------|
 
 
-
-# _______________________________________________________________________________________
-#|------------> CONTROL PANEL HEADER (Final) <-------------------------------------------|
+#------------------------------------------------------------| CONTROL PANEL HEADER (Left) |------------------>
 with streamlit.sidebar:
     streamlit.markdown('<div style="margin-top: 20px;"></div>', unsafe_allow_html=True)
     streamlit.markdown("""
         <div style="
-            background-color: #a0a0a0;
+            background-color: #1a3a6b;
             padding: 11px 14px;
-            margin-left: -0.98rem;
-            margin-right: -0.98rem;
-            margin-top: -2.5rem;
+            margin-left: -0.9rem;
+            margin-right: -0.9rem;
+            margin-top: -2.8rem;
             margin-bottom:-5rem;
-            border: 2px solid #707070;
+            border: 5px solid #0f2547;
         ">
             <span style="color: white; font-size: 1.1em; font-weight: bold;">
                 ⚙️ AI-Driven File Paradigm APP
@@ -135,10 +175,41 @@ with streamlit.sidebar:
         </div>
     """, unsafe_allow_html=True)
 
+#                    |                                                                         |
+#                   |||                                                                       |||
+#                  |||||                                                                     |||||
+#                  |||||              APPLICATION INITIATION AND CONFIGURATIONS              |||||
+#                  |||||                                                                     |||||
+#                   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                      |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                        |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                           |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                               |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                                    |||||||||||||||||||||||||||||||||||||||||||||||
+#                                          |||||||||||||||||||||||||||||||||||
+#                                                 |||||||||||||||||
+#
+#
+#
+#                                                 |||||||||||||||||
+#                                          |||||||||||||||||||||||||||||||
+#                                    |||||||||||||||||||||||||||||||||||||||||||
+#                               |||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                           |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                        |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                      |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                  |||||                                                                     |||||
+#                  |||||                       CONTROL PANEL UI & DESIGN                     |||||
+#                  |||||                    (All of Left Side Panel Coding)                  |||||
+#                   |||                                                                       |||
+#                    |                                                                         |
+#                    V                                                                         V
 
-
-# Panel 1
-with streamlit.sidebar:
+#------------------------------------------------------------| 
+with streamlit.sidebar: #renders in control panel.
     streamlit.markdown('<div style="margin-top: 0px;"></div>', unsafe_allow_html=True)
     # Adds the UI Design for the Run Button.
     streamlit.markdown("""
@@ -157,12 +228,20 @@ with streamlit.sidebar:
             color: white !important;
             border-color: #388e3c !important;
         }
+        [data-testid="stExpander"] [data-testid="stButton"] button {
+            background-color: transparent !important;
+            color: #2d2d2d !important;
+            border: 1px solid #2d2d2d !important;
+            border-radius: 4px !important;
+            padding: 2px 6px !important;
+            font-size: 0.8em !important;
+        }
     </style>
     """, unsafe_allow_html=True)
-    # Run Button
-    streamlit.button("▶  Run AI-Categorising", use_container_width=True)
+    # Run Button (added key to be selected) - was having an issue editing the run button, this lets us targets it
+    streamlit.button("▶  Run AI-Categorising", use_container_width=True, key="run_button")
     
-    # Loading Bar
+    # Loading Bar (needs to be hooked up ofc)
     streamlit.markdown("""
     <style>
         .stProgress > div > div > div {
@@ -180,10 +259,6 @@ with streamlit.sidebar:
     </style>
     """, unsafe_allow_html=True)
     streamlit.progress(10)
-
-    
-    
-
 
 
 #    __________________________________________________________________    
@@ -237,7 +312,7 @@ with streamlit.sidebar:
         }
     </style>
     """, unsafe_allow_html=True)
-    # Upload File Box
+    # Upload File Box (Where u can drag and drop into)
     uploaded_files = streamlit.file_uploader(
         "📂 Upload Files",
         accept_multiple_files=True,
@@ -258,7 +333,7 @@ with streamlit.sidebar:
 #   |                                                                            |
 #   V                                                                            V
 
-# CSS border around the mode:
+# Repository View Button - Sidebar using radio radio button groups
     streamlit.markdown("""
     <style>
       div[data-testid="stRadio"] {
@@ -267,7 +342,7 @@ with streamlit.sidebar:
          border-radius: 6px;
          padding: 10px;
          margin-top: -20px;
-         margin-right: -14.8rem;
+         margin-right: -15.7rem;
         
       }
      /* Repository View title */
@@ -342,7 +417,7 @@ with streamlit.sidebar:
 #   |                                                                            |
 #   V                                                                            V
 
-    #Adding the download button to streamlit
+    #Adding the download button from streamlit 
     streamlit.markdown('<div style="margin-top: 0px;"></div>', unsafe_allow_html=True)
     streamlit.markdown("""
     <style>
@@ -367,7 +442,7 @@ with streamlit.sidebar:
     </style>
     """, unsafe_allow_html=True)
 
-    #This adds the download button features. (probably need a unique code generator and date for file name.)
+    #This adds the download button characteristics. (probably need a unique code generator and date for file name.)
     streamlit.download_button(
      label="⬇ Download New Repository",
         data=b"",
@@ -393,86 +468,278 @@ with streamlit.sidebar:
 #   |                      End of Download Button Feature                        |
 #   |____________________________________________________________________________|  
 
+#                    |                                                                         |
+#                   |||                                                                       |||
+#                  |||||                                                                     |||||
+#                  |||||                     END OF  CONTROL PANEL SECTION                   |||||
+#                  |||||                                                                     |||||
+#                   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                      |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                        |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                           |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                               |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                                    |||||||||||||||||||||||||||||||||||||||||||||||
+#                                          |||||||||||||||||||||||||||||||||||
+#                                                 |||||||||||||||||
 
+
+# Section 3: Directory Panels 
+
+
+#                                                 |||||||||||||||||
+#                                          |||||||||||||||||||||||||||||||
+#                                    |||||||||||||||||||||||||||||||||||||||||||
+#                               |||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                           |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                        |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                      |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                  |||||                                                                     |||||
+#                  |||||                     DIRECTORY PANEL VIEW OPTIONS                    |||||
+#                  |||||                  (This Includes the Ifs for Options)                |||||
+#                   |||                                                                       |||
+#                    |                                                                         |
+#                    V                                                                         V
+
+
+#==============|  Folder Drop Down Styling  |===>
+#initial expander is a different outer container of each folder dropdown.
+#details expander is the clickable header of each folder
+#details[open] is clickable header when expanded
+# further expanders fore file names, and arrows and info butons forcing the colours.
+# final expander adds a hover to highlight buttons
+streamlit.markdown("""
+    <style>
+        [data-testid="stExpander"] {
+            background-color: #ffffff !important;
+            border-radius: 8px !important;
+            border: 1px solid #c5d5e8 !important;
+            margin-bottom: 5px !important;
+        }
+        details[data-testid="stExpander"] > summary {
+            background-color: #ffffff !important;
+            border-radius: 8px !important;
+        }
+        details[open] > summary {
+            background-color: #fff176 !important;
+            border-radius: 8px 8px 0 0 !important;
+            color: #2d2d2d !important;
+        }
+        [data-testid="stExpander"] summary p {
+            color: #2d2d2d !important;
+        }
+        [data-testid="stExpander"] [data-testid="stMarkdownContainer"] p {
+            color: #2d2d2d !important;
+        }
+        [data-testid="stExpander"] summary span[data-testid="stIconMaterial"] {
+            color: #2d2d2d !important;
+        }
+        [data-testid="stExpander"] [data-testid="stButton"] button {
+            background-color: transparent !important;
+            color: #2d2d2d !important;
+            border: none !important;
+            padding: 2px 6px !important;
+            font-size: 0.8em !important;
+            margin-right: 6rem !important;
+        }
+        [data-testid="stExpander"] [data-testid="stButton"] button:hover {
+            background-color: #4caf50 !important;
+            color: white !important;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+#=====================================||
+#
+
+
+#|||======================================== Everything Below Only Renders In Right Panel IF AI-SORTED REPOSITORY selected.
+# checking which radio is selected for viewmode. 
 if streamlit.session_state.viewMode == "AI-Sorted Repository":
 
-    streamlit.markdown("### AI-Sorted Repository Frame")
-    # future:
-    # show sorted folders
+ #==============|  AI SEARCH BAR (WIP)  |===>
+ # formatting search bar but not yet implemented for use.
+    streamlit.markdown("""
+        <div style="
+            background-color: #4a6a8a;
+            border: 1px solid #3a5a7a;
+            border-radius: 8px;
+            padding: 8px 14px;
+            color: #c0d0e0;
+            font-style: italic;
+            margin-bottom: 10px;
+        ">
+            🔍 AI-Search... &nbsp;&nbsp;&nbsp; <span style="font-size:0.8em; color:#8aabcc;">⚠️ WIP - Not yet implemented</span>
+        </div>
+    """, unsafe_allow_html=True)
 
+ # pulls the category dictionary out of filesAiSorted.json, if none exist - defaults to empty dictionary
+    categories = sorted_data.get("categories", {})
+
+#Loops each category and its lists of files, for each one it creates the expander folder.
+    for category, files in categories.items():
+        # builds folder titles on the info to add an extra s if plural and file count.
+        with streamlit.expander(f"📁 {category}  ({len(files)} file{'s'if len(files) !=1 else''})",expanded=False):
+            for file in files: 
+                btn_col, file_col = streamlit.columns([1, 6])# splits each file row to columns
+                with btn_col:
+                    icon = "✕" if streamlit.session_state.selected_file == file else "ℹ️" #checks if info pan is open
+
+                    #Logic for the Button, only opens file if file isn't open, and closes other files info panel if they are open.
+                    if streamlit.button(icon, key=f"sel_{file['original_name']}"):
+                        if streamlit.session_state.selected_file == file:
+                            streamlit.session_state.selected_file = None
+                        else:
+                            streamlit.session_state.selected_file = file
+                        streamlit.rerun() #forces page refresh
+                with file_col:
+                    streamlit.markdown(f"📄 {file['original_name']}") #renders name in details - f-string
+
+
+#MISC FOLDER SECTION: 
+    #Similar to previous but renders a Misc file section for unable to sort. 
+    misc_files = sorted_data.get("misc", [])
+    #Same as before creating collapsible drop down
+    with streamlit.expander(f"❓ Misc (Unable to Sort)  ({len(misc_files)} file{'s'if len(misc_files) !=1 else ''})",expanded=False):
+        if misc_files:#looks for misc files
+            for file in misc_files: #loops for each
+                btn_col, file_col = streamlit.columns([1, 6])
+                with btn_col:
+                    icon = "✕" if streamlit.session_state.selected_file == file else "ℹ️" #same as before
+                    #same logic looking for opened details panels closing and opening its own etc.
+                    if streamlit.button(icon, key=f"misc_{file['original_name']}"):
+                        if streamlit.session_state.selected_file == file:
+                            streamlit.session_state.selected_file = None
+                        else:
+                            streamlit.session_state.selected_file = file
+                        streamlit.rerun()
+                with file_col:
+                    streamlit.markdown(f"📄 {file['original_name']}") #setting name of files
+        else:
+            streamlit.caption("No miscellaneous files.") #preferably the app shows this majority of the time.
+# |===================================================================|
+
+# |============== UNSORTED REPOSITORY (WIP)
+# Work In Progress, Need to create this section, for now flat file list will do. 
 elif streamlit.session_state.viewMode == "Unsorted Repository":
 
-    streamlit.markdown("### Unsorted Repository Frame")
-    # future:
-    # show raw upload order
+    # Flat file list in upload order for now
+    if uploaded_files:
+        for uf in uploaded_files:
+            streamlit.markdown(f"📄 {uf.name}")
+    else:
+        streamlit.info("📂 No files uploaded yet.")
 
-elif streamlit.session_state.viewMode == "Runtime Application Reports":
+# |============== ACTIVITY LOG (WIP)
+elif streamlit.session_state.viewMode == "Runtime Application Report":
 
-    streamlit.markdown("### Runtime Application Reports Frame")
-    # future:
-    # show logs / terminal output
+    # placeholder this is WORK In Progress.
+    streamlit.markdown("""
+        <div style="
+            background-color: #1a2a3a;
+            border: 1px solid #3a5a7a;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: monospace;
+            color: #a0c0e0;
+            font-size: 0.85em;
+        ">
+            <p>⏳ Waiting for activity...</p>
+            <p style="color:#8aabcc; font-style:italic;">Logs will appear here once categorisation begins.</p>
+        </div>
+    """, unsafe_allow_html=True)
 
-#   |                       End of Select View Feature                           |
-#   |____________________________________________________________________________|   
+#   |                    End of Right Side Directory Panel                       |
+#   |____________________________________________________________________________|  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
+#                    |                                                                         |
+#                   |||                                                                       |||
+#                  |||||                                                                     |||||
+#                  |||||                   END OF  DIRECTORY PANEL SECTION                   |||||
+#                  |||||                                                                     |||||
+#                   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                      |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                        |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                           |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                               |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                                    |||||||||||||||||||||||||||||||||||||||||||||||
+#                                          |||||||||||||||||||||||||||||||||||
+#                                                 |||||||||||||||||
 
 
 #Adjusting Widths So When Details Panel is Selected or Not the Folder Panel (Directory) fits to the screen
 
 
-col2, col3 = streamlit.columns([3, 1])
-# Panel 2
 
 
-# Panel 3
+#                                                 |||||||||||||||||
+#                                          |||||||||||||||||||||||||||||||
+#                                    |||||||||||||||||||||||||||||||||||||||||||
+#                               |||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                           |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                        |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                      |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                  |||||                                                                     |||||
+#                  |||||                          FILE DETAILS PANEL                         |||||
+#                  |||||                (Small Section for Extended File Info)               |||||
+#                   |||                                                                       |||
+#                    |                                                                         |
+#                    V                                                                         V
 
-
-# Temporary test button - remove later
-if streamlit.button("Test Detail Panel"):
-    if streamlit.session_state.selected_file:
-        streamlit.session_state.selected_file = None
-    else:
-        streamlit.session_state.selected_file = "test"
-    streamlit.rerun()
 
 if streamlit.session_state.selected_file:
-    #Config for Detail Panel
-    streamlit.markdown("""
+    file = streamlit.session_state.selected_file
+
+    streamlit.markdown(f"""
         <div style="
             position: fixed;
             top: 230px; 
             right: 40px;
             width: 300px;
-            height: 400px;
-            background-color: #a0a0a0;
-            border: 3px dashed #ccc;
-            border-color: #707070;
+            height: 500px;
+            background-color: #1a2a3a;
+            border: 2px solid #2952a3;
             border-radius: 8px;
             padding: 16px;
             z-index: 9999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            color: white;
         ">
-            EXT INFORMATION PANEL
+            <h4 style="color:#7aafd4; margin-top:0;">{file['original_name']}</h4>
+            <hr style="border-color:#2952a3;">
+            <p><b>🤖 AI Description:</b><br>{file.get('rationale') or 'N/A'}</p>
+            <p><b>📄 File Type:</b> {file.get('extension', 'Unknown')}</p>
+            <p><b>💾 File Size:</b> {round(file.get('size_bytes', 0) / 1024, 1)} KB</p>
+            <p><b>🔤 Word Count:</b> {file.get('word_count', 0)} words</p>
+            <p><b>📅 Date Added:</b> {file.get('date_added', 'Unknown')}</p>
+            <p><b>🚩 App Report Flags:</b><br>
+                <span style="color:{'#e53935' if file.get('error') else '#4caf50'}">
+                    {file.get('error') or 'NONE'}
+                </span>
+            </p>
+            <p><b>📁 Original Path:</b><br>
+                <span style="color:#8aabcc; font-style:italic;">⚠️ WIP - Not yet implemented</span>
+            </p>
         </div>
     """, unsafe_allow_html=True)
 
-
-
+#                   |                                                                         |
+#                   |||                                                                       |||
+#                  |||||                                                                     |||||
+#                  |||||                   END OF  DIRECTORY PANEL SECTION                   |||||
+#                  |||||                                                                     |||||
+#                   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                      |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                        |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                           |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                               |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+#                                    |||||||||||||||||||||||||||||||||||||||||||||||
+#                                          |||||||||||||||||||||||||||||||||||
+#                                                 |||||||||||||||||
