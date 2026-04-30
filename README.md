@@ -1,5 +1,9 @@
+Author:
+Thomas Scowen - 1074249
+Liverpool John Moores University
+Supervised by Mrs. Janet Lunn
 
-
+ #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
 AI Driven File Paradigm Application
 #----------------------------------#
 6200COMP Final Year Project - Thomas Scowen
@@ -25,8 +29,9 @@ Requirements:
                                             for GPU acceleration. (OPTIONAL but Recommended)
 
 Setup & Installation:
+ #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
+ ###                   **FIRST TIME SETUP**
 
-**FIRST TIME SETUP**
 # Step 1 - DOWNLOAD the Project
 Download this repositoriy to your computer from **github**. 
 
@@ -48,9 +53,48 @@ python setup.py
                         * And run: streamlit run fileParadigm.App.py 
                         * (though this method is more likely to break from human error)
 
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=#
+ ###        **RUNNING AGAIN AFTER SETUP**
+ 1: In Terminal Run:
+        # *For **Mac** / **Linux**:*
+            source venv/bin/activate  
+        # *For **Windows**:*
+            venv\Scripts\activate
+ 2: In Terminal Run:
+        streamlit run fileParadigmApp.py
+
+#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
+IMPORTANT: WHEN USING THE APPLICATION
+
+- The App Currently only supports, .docx, .pdf and .txt (Scanned / Image PDFs can't be parsed, thus error may be added)
+
+- core/appConfig.py allows tweaking properities of the AI (recommended to avoid)
+
+- As the app is being ran locally the program can take up to 15minutes per document on CPUs (depending on hardware), for maximum
+  efficiency it is recommended to upload all files at once and the run these at once, to avoid reclustering each time.
+    **GPU SIGNIFICANTLY REDUCES THIS TO 30-60 Seconds Per DOCUMENT**
+
+- In the UI which will appear in the web browser, you should upload files in the drop box, then click the >Run AI-Categorising 
+
+- There is a small possibility that Mistral hullucinates file names in the cluster assignments, LLMs are non deterministic which can result in   varied responses. (this only happened once in testing)
+
+--------------------------------------------------------------------------------------------------------
+Features in Development:
+- Ai Semantic Searching
+- Dynamic Processing modes, (fast/balanced or thorough, currently set just to thorough)
+- Downloading repository as ZIP
+- Full Runtime application reports/logs with AI oversight
+- Tag Relationship graphs between clusters
+
+
+
 
 
 
         
-
-This will create the virtual 
+#Important Webpages for Features Used:
+Mistral-7B-Instruct-v0.3
+HuggingFace Transformers
+Streamlit Documentation
+PyMuPDF Documentation
+Python-docx Documentation

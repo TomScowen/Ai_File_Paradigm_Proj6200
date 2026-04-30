@@ -452,7 +452,7 @@ with streamlit.sidebar: #renders in control panel.
         "Repository View",
      [
            "AI-Sorted Repository",
-            "Upload Repository ⚠️ W.I.P",
+            "Tag Relation Graph ⚠️ W.I.P",
             "Runtime Report ⚠️ W.I.P"
         ],
         key="viewMode")
