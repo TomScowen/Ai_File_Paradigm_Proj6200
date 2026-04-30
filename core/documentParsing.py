@@ -28,6 +28,11 @@ def parse_Doc(file_path):
         textX = ""
         for page in documentX:
             textX += page.get_text()
+
+        #Detecting if image based PDF... NEW FEATURE
+        if len(textX.strip()) ==0:
+            print("The PDF Is likely image-based / scanned, thus no extrabale text. (APP Doesnt Currently Support IMAGE BASED)")
+            return getMetadata(file_path, ext, "", error=ERRORS["UNSUPPORTED_IMAGEorSCANNED_PDF"])
     # WORD DOCUMENT FILES:
     elif ext == '.docx':
         print ("Loading Parsing Type:",ext)

@@ -1,10 +1,21 @@
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ # THIS SECTION HAS BEEN DISCONTINUED, DUE TO OPERATING ON MAC, STREAMLIT WEB APPS
+ # HAVE ISSUES WHEN UPLOADING FILES IN APPLICATION WINDOWS, HOWEVER USING
+ # A BROWSER, SEEMS TO ALLOW UPLOADING OF FILES.
+
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
 #  ___________________________________________________________________
 # |=-=-=-=-=-=-=-=-=-=-=-=| APP LAUNCH PHASE |=-=-=-=-=-=-=-=-=-=-=-=|
 # |           This section uses PyWebView to wrap the streamlit      |
 # |     thus that can open the app as a desktop window instead of    |
 # |                 opening the app within a browser.                |
 #  \________________________________________________________________/
-
+ 
 #Import list For PyWebView
 import subprocess
 import threading # runs things simultaneously (currently not working)

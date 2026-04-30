@@ -9,5 +9,6 @@ ERRORS = {
     "INSUFFICIENT_CONTENTS": "APP ERROR! - Error 02: File contains less than 50 words. Fallback To Use Metadata",
     "FILE_NOT_FOUND": "APP ERROR! - Error 03: File couldn't be located at given path.",
     "METADATA_NOT_FOUND": "APP ERROR! - Error 04: Metadata couldn't be found or accessed by application",
-    "PARSE_FAILED": "APP ERROR! - Error 05: Mistral7bs Response Failed To Be Parsed."
+    "PARSE_FAILED": "APP ERROR! - Error 05: Mistral7bs Response Failed To Be Parsed.",
+    "UNSUPPORTED_IMAGEorSCANNED_PDF": "APP ERROR! - Error 06: PDF is Likely Scanned or Image Based, which is Currently Unsupported."
 }
