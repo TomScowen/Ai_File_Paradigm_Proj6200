@@ -396,7 +396,7 @@ with streamlit.sidebar: #renders in control panel.
                             metadata=parsed_result["metadata"],
                             error=parsed_result["error"],
                             parseTime=parseTime,
-                            tagT=tagTime,
+                            tagTime=tagTime,
                             totTime=totTime
                         )
                 
