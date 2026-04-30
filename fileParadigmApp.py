@@ -369,7 +369,7 @@ with streamlit.sidebar: #renders in control panel.
                 #parsing the document
                 parsed_result = parse_Doc(tmp_path)
                 parse_endTime= time.time()
-                parseT = round(parse_endTime - parse_stTime, 2)
+                parseTime = round(parse_endTime - parse_stTime, 2)
                 
                 #generates the fileID (which is unique but static to each file)
                 fileID = hashlib.md5(f"{parsed_result['metadata']['filename']},{parsed_result['metadata']['size_bytes']}{parsed_result['metadata']['last_modified']}".encode()).hexdigest()[:8]
@@ -381,10 +381,10 @@ with streamlit.sidebar: #renders in control panel.
                     tag_stTime = time.time()
                     result = categorise_Doc(parsed_result) #inputting parsed results to categorise
                     tag_endTime = time.time()
-                    tagT = round(tag_endTime - tag_stTime, 2)
-                    totTime = round(parseT + tagT , 2)
+                    tagTime = round(tag_endTime - tag_stTime, 2)
+                    totTime = round(parseTime + tagTime , 2)
 
-                    print(f"TIMINGS FOR FILE: {uploaded_file.name} | Parsing time >> {parseT}s | Tagging time >> {tagT}s | Total Time >>> {totTime}s")
+                    print(f"TIMINGS FOR FILE: {uploaded_file.name} | Parsing time >> {parseTime}s | Tagging time >> {tagTime}s | Total Time >>> {totTime}s")
 
                     
                     if result:
@@ -395,8 +395,8 @@ with streamlit.sidebar: #renders in control panel.
                             rationale=result.get("rationale", ""),
                             metadata=parsed_result["metadata"],
                             error=parsed_result["error"],
-                            parseT=parseT,
-                            tagT=tagT,
+                            parseTime=parseTime,
+                            tagT=tagTime,
                             totTime=totTime
                         )
                 
