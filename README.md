@@ -11,7 +11,9 @@ Supervised by Mrs. Janet Lunn
     significantly longer to run. (from 10-15minutes per file to 30-60seconds per file)
 
 !!!  There is a Participant C - Test Video Uploaded If You Wish to View the Runnings of the Program  !!!
-!!!              Without having to install or test the program yourself.                             !!!
+!!!              Without having to install or test the program yourself.      
+                       !!!
+if you do run the program, upload your 2-4 files and run them all at once, to save on computer resources.
 
 --------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------

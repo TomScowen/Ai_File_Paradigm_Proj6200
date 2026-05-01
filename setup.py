@@ -39,7 +39,8 @@ else:
 #Install requirements.txt (now different as mac required specific additions that would crash win)
 if not os.path.exists("venv"):
     if sys.platform == "win32": #Windows req
-        run([venv_pip, "install", "-r", "requirements-win.txt"], "2/4 installing requirements-win.py (Windows)...")
+        run([venv_pip, "install", "-r", "requirements-win.txt", "--ignore-requires-python"], 
+        "2/4 Installing requirements (Windows)...")
     else: #Mac req
         run([venv_pip, "install", "-r", "requirements-mac.txt"], "2/4 installing requirements-mac.py (Mac)...")
 else: 
